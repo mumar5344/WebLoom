@@ -104,6 +104,7 @@ insBar.addEventListener('keydown', (e) => {
 });
 proceed.addEventListener('click', () => {
     renderElements();
+    numbPlus();
     list.addEventListener('click', (e) => {
         if(e.target.classList.contains('empty')) {
             emptyPara = e.target;
