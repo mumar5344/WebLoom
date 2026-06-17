@@ -55,6 +55,7 @@ if (list.children.length !== 0) {
             }
         }
     });
+    //cross button functionality
     list.addEventListener('click', (e) => {
         if(e.target.classList.contains('cross')) {
             let crossButton = e.target;
@@ -88,6 +89,7 @@ if (list.children.length !== 0) {
         pendingCount.textContent = `${pending}`;
     }
 }
+//Adding Todo Works into DIV list
 insBar.addEventListener('keydown', (e) => {
     if(e.key === "Enter") {
         renderElements();
@@ -108,7 +110,7 @@ proceed.addEventListener('click', () => {
     list.addEventListener('click', (e) => {
         if(e.target.classList.contains('empty')) {
             emptyPara = e.target;
-                emptyPara.parentElement.remove();
+            emptyPara.parentElement.remove();
         }
     });
 })
