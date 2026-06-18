@@ -1,95 +1,116 @@
+let list = document.querySelector('.list');
 let totalCount = document.querySelector('.totalCount');
 let pendingCount = document.querySelector('.pendingCount');
 let doneCount = document.querySelector('.doneCount');
-let insBar = document.querySelector('.insert');
 let proceed = document.querySelector('.proceed');
-let list = document.querySelector('.list');
-let todoPara = document.querySelector('.goal');
-let cross = document.querySelector('.cross');
-let date = document.querySelector('.date');
-let priority = document.querySelector('.prioCheck');
+let insBar = document.querySelector('.insert');
+let checkBox = document.querySelectorAll('.checkbox');
+let crossButton = document.querySelector('.cross');
 let toDo = document.querySelector('.todoTask');
-let prioCheck = false;
-let done = 0, total = 0, pending = 0;
-let todoList = [];
+let total = 0;
+let pending = 0;
+let done = 0;
+let doneStatus = false;
 function emptyList() {
-    list.innerHTML = 
-        `
-        <p class="empty">Nothing Here...</p>
-        `;
+    if (list.children.length === 0) {
+        list.innerHTML = `<p class="empty">Nothing Here..</p>`;
+        let emptyPara = document.querySelector('.empty');
+        emptyPara.classList.toggle('.empty');
+    }
 }
-window.addEventListener('load', () => {
-        if(!list.contains(toDo)) {
-            emptyList();
-        }
-});
-function addToList() {
+emptyList();
+function renderElements() {
     let value = insBar.value;
-    todoList.push(value);
-}
-function sum() {
-    totalCount.textContent = total;
-    pendingCount.textContent = pending;
-    doneCount.textContent = done;
-}
-proceed.addEventListener('click', () => {
-    let insValue = insBar.value;
-    let dateValue = date.value;
-    addToList();
-    let i = todoList.length - 1;
-    if(insValue !== "" && dateValue !== "") {
-        total += 1;
-        pending += 1;
-        const emptyMsg = list.querySelector('.empty');
-        if(emptyMsg) emptyMsg.remove();
-        taskHTML = `
-            <div class="todoTask ${priority.checked ? 'prio' : 'none'}">
+    if (value !== "")
+    {
+        list.innerHTML += `
+            <div class="todoTask">
                 <div class="todoArea">
                     <input type="checkbox" class="checkbox">
-                    <p class="goal">${todoList[i]}</p>
-                    <p class="dateAdd">${dateValue}</p>
+                    <p class="goal">${value}</p>
                 </div>
                 <button class="cross">x</button>
             </div>
         `;
-        if(priority.checked) {
-            list.insertAdjacentHTML('afterbegin', taskHTML);
-            priority.checked = false;
-            prioCheck = true;
-        } else if(priority.checked === false) {
-            list.insertAdjacentHTML('beforeend', taskHTML);
+        total += 1;
+        pending += 1;
+        insBar.value = "";
+    }
+}
+if (list.children.length !== 0) {
+    list.addEventListener('click', (e) => {
+        if (e.target.classList.contains('checkbox'))
+        {
+            let checkBox = e.target;
+            if(checkBox.checked) {
+                checkBox.disabled = true;
+                checkBox.nextElementSibling.textDecoration = "line-through";
+                doneStatus = true;
+                done += 1;
+                if (pending !== 0) pending -= 1;
+                numbPlus();
+                // setInterval(() => {
+                //     toDo.remove();
+                // }, 1000)
+            }
         }
-        insBar.value = '';
-        date.value = '';
+    });
+    //cross button functionality
+    list.addEventListener('click', (e) => {
+        if(e.target.classList.contains('cross')) {
+            let crossButton = e.target;
+            crossButton.parentElement.remove();
+            if (total !== 0 && doneStatus) {
+                total -= 1;
+                numbPlus();
+            } else if (total !== 0 && !doneStatus) {
+                total -= 1;
+                numbPlus();
+            }
+            if (pending !== 0 && doneStatus) {
+                pending -= 1;
+                numbPlus();
+            } else if(pending !== 0 && !doneStatus) {
+                pending -= 1;
+                numbPlus();
+            }
+            if (done !== 0 && doneStatus) {
+                done -= 1;
+                numbPlus();
+            } else if(done !== 0 && !doneStatus) {
+                done -= 1;
+                numbPlus();
+            }
+        }
+    });
+    function numbPlus() {
+        totalCount.textContent = `${total}`;
+        doneCount.textContent = `${done}`;
+        pendingCount.textContent = `${pending}`;
     }
-    sum();
+}
+//Adding Todo Works into DIV list
+insBar.addEventListener('keydown', (e) => {
+    if(e.key === "Enter") {
+        renderElements();
+        numbPlus();
+    }
+    list.addEventListener('click', (e) => {
+        if(e.target.classList.contains('empty')) {
+            emptyPara = e.target;
+            if(list.children.length !== 0) {
+                emptyPara.remove();
+            }
+        }
+    });
 });
-let checkBox = document.querySelector('.checkbox');
-list.addEventListener('change', (e) => {
-    if(e.target.classList.contains('checkbox')) {
-        const p = e.target.nextElementSibling;
-        p.style.textDecoration = e.target.checked ? 'line-through' : 'none';
-        if (e.target.checked) e.target.disabled = true;
-        done += 1;
-        total -= 1;
-        pending -= 1;
-        sum();
-    }
+proceed.addEventListener('click', () => {
+    renderElements();
+    numbPlus();
+    list.addEventListener('click', (e) => {
+        if(e.target.classList.contains('empty')) {
+            emptyPara = e.target;
+            emptyPara.parentElement.remove();
+        }
+    });
 })
-list.addEventListener('click', (e) => {
-    if(e.target.classList.contains('cross')) {
-        const task = e.target.closest('.todoTask');
-        const check = document.querySelector('.checkbox');
-        if(check.checked && done !== 0) {
-            done -= 1;
-        } else if(!check.checked && total !== 0 && pending !== 0) {
-            total -= 1;
-            pending -= 1
-        }
-        sum();
-        task.remove();
-        if(list.querySelectorAll('.todoTask').length === 0) {
-            emptyList();
-        }
-    }
-});
