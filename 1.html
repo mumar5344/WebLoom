@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="1.css">
 </head>
 <body>
+    <div class="confirmation">
+        <div class="styling">
+            <p class="p-confirm">Are You sure you want to delete it?</p>
+            <div class="btns">
+                <button class="confirmBtn yes">Yes</button>
+                <button class="confirmBtn no">No</button>
+            </div>
+        </div>
+    </div>
+    <div class="nightDarkmode">
+        <img src="./Icons/lightMode.png" alt="light-mode" class="modeSwitch">
+    </div>
     <div class="divHeading">
         <div class="sub-div-1">
             <p class="to">To</p>
@@ -31,8 +43,14 @@
             <p class="done">Done</p>
         </div>
     </div>
-    <div class="insertBar">
-        <input class="insert" placeholder="Insert Goal..." >
+    <div class="center">
+<div class="insertBar">
+        <input type="date" class="date">
+        <input class="insert" placeholder="Insert Goal...">
+        <div class="prioDiv">
+            <input type="checkbox" class="prioCheck">
+            <psan class="priority">Priority</psan>
+        </div>
         <button class="proceed">
             <img src="./Icons/chevron-right-color.png" class="right-chevron">
         </button>
@@ -40,16 +58,23 @@
     <div class="divList">
         <div class="list">
             <!---->
-            <div class="todoTask">
+            <!-- <div class="todoTask">
                 <div class="todoArea">
                     <input type="checkbox" class="checkbox">
-                    <p class="goal">dsadas</p>
+                    <div class="pad">
+                        <p class="goal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, sunt.</p>
+                    </div>
                 </div>
-                <button class="cross">x</button>
-            </div>
+                <div class="flexEnd">
+                    <p class="dateAdd">2026-06-24</p>
+                    <button class="cross">x</button>
+                </div>
+            </div> -->
             <!---->
         </div>
     </div>
+    </div>
+    <!-- <marquee>ddfrerew</marquee> -->
 </body>
 <script src="1.js"></script>
 </html>
