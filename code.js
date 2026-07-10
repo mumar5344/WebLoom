@@ -127,11 +127,6 @@ function setValue() {
             insBar.style.borderColor = "rgb(255, 165, 0)";
         }
     }
-    console.log(todoList);
-    console.log(dateList);
-    console.log(taskNumber);
-    console.log(checkedList);
-    console.log(prioList);
 }
 let show;
 function renderSaveList() {
