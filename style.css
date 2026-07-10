@@ -177,7 +177,6 @@
             background: white;
             border-radius: 0 100px 100px 0;
             cursor: pointer;
-            z-index: 9999;
         }
         .right-chevron{
             height: 16px;
