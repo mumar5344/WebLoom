@@ -199,7 +199,7 @@ list.addEventListener('click', (e) => {
             checkBox.nextElementSibling.style.textDecoration = "line-through";
             doneStatus = true;
             checkedList[idx] = doneStatus;
-            localStorage.setItem('checkListValue', JSON.stringify(checkedList));
+            localStorage.setItem('checkedListValue', JSON.stringify(checkedList));
             taskNumber.pending -= 1;
             taskNumber.done += 1;
             localStorage.setItem('savedTaskNumber', JSON.stringify(taskNumber));
